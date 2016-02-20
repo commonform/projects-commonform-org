@@ -1,11 +1,17 @@
-{-# LANGUAGE DeriveGeneric #-}
+-- Makes it easier to provide ByteStrings to WAI.
 {-# LANGUAGE OverloadedStrings #-}
+
+-- Makes it easier to set up JSON serialization with Aeson.
+{-# LANGUAGE DeriveGeneric #-}
 
 module ExampleWAIServer (handler) where
 
+-- Imports for JSON with Aeson
 import Data.Aeson
 import Data.Text
 import GHC.Generics
+
+-- Imports for the WAI handler
 import Network.HTTP.Types (status200)
 import Network.Wai
 
@@ -31,6 +37,8 @@ meta = Meta {
     service="example-wai-server"
   , version="0.0.0"
   }
+
+-- A WAI request handler function.
 
 handler :: Application
 handler _ respond =

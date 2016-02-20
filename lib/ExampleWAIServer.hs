@@ -16,11 +16,21 @@ data Meta = Meta {
     service :: Text
     -- API version
   , version :: Text
-} deriving (Generic, Show)
+  } deriving (Generic, Show)
 
 -- Make Meta JSON-serializable
 
 instance ToJSON Meta
+
+-- Meta for This Service
+
+-- Sure, you could just writ the corresponding JSON as a string, but
+-- this gives us a chance to show aeson in action.
+
+meta = Meta {
+    service="example-wai-server"
+  , version="0.0.0"
+  }
 
 handler :: Application
 handler _ respond =
@@ -29,6 +39,4 @@ handler _ respond =
     respond $ responseLBS
         status200
         [("Content-Type", "application/json")]
-        (encode Meta {
-            service="example-wai-server"
-          , version="0.0.0"})
+        (encode meta)

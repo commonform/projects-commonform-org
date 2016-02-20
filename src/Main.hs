@@ -2,6 +2,7 @@ module Main (main) where
 
 import Control.Exception (catch)
 import Data.Maybe (fromMaybe)
+import Data.Char (toLower)
 import Network.Wai
 import Network.Wai.Handler.Warp (run, Port)
 import Network.Wai.Middleware.RequestLogger (logStdout, logStdoutDev)
@@ -31,7 +32,7 @@ getEnvironment :: IO Environment
 getEnvironment = readEnvironment `catch` useDefault where
     readEnvironment = do
         environment <- getEnv "ENV"
-        let parsed = case environment of
+        let parsed = case map toLower environment of
                          "production" -> Production
                          "test" -> Test
                          _ -> defaultEnvironment

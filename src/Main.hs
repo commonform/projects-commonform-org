@@ -21,7 +21,6 @@ defaultPort :: Port
 defaultPort = 8080
 
 -- Read port number from the environment variable "PORT".
-
 getPort :: IO Port
 getPort =
     -- `getEnv` will throw an exception if "PORT" isn't set in the
@@ -43,13 +42,15 @@ getPort =
 data Environment = Development | Production | Test
 defaultEnvironment = Development
 
--- Read runtime environment from the environment variable "ENV".
+-- A helper function used below
+lowerCase = map toLower
 
+-- Read runtime environment from the environment variable "ENV".
 getEnvironment :: IO Environment
 getEnvironment = readEnvironment `catch` useDefault where
     readEnvironment = do
         environment <- getEnv "ENV"
-        let parsed = case map toLower environment of
+        let parsed = case lowerCase environment of
                          "production" -> Production
                          "test" -> Test
                          _ -> defaultEnvironment
@@ -66,7 +67,6 @@ loggingMiddleware Production = logStdout
 loggingMiddleware Test = id
 
 -- Server
-
 main :: IO ()
 main = do
     port <- getPort

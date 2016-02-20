@@ -1,14 +1,19 @@
 module Main (main) where
 
+-- Imports used to read from environment variables.
 import Control.Exception (catch)
-import Data.Maybe (fromMaybe)
 import Data.Char (toLower)
+import Data.Maybe (fromMaybe)
+import System.Environment (getEnv)
+import Text.Read (readMaybe)
+
+-- Imports used to start a Warp HTTP server.
 import Network.Wai
 import Network.Wai.Handler.Warp (run, Port)
 import Network.Wai.Middleware.RequestLogger (logStdout, logStdoutDev)
+
+-- The request handler for the Warp server.
 import ExampleWAIServer (handler)
-import System.Environment (getEnv)
-import Text.Read (readMaybe)
 
 -- Port
 

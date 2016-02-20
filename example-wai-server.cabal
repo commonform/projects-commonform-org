@@ -1,5 +1,5 @@
 name:                example-wai-server
-version:             0.1.0.0
+version:             0.0.0
 synopsis:            Simple JSON API server using Warp and WAI
 description:         Please see README.md
 homepage:            http://github.com/kemitchell/wai-server
